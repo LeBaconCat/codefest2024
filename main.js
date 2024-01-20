@@ -58,3 +58,5 @@ function gotPoses(results) {
 function draw() {
     game();
 }
+
+// last commit(17:31) i accidentally put the wrong name, the right name is fixed error in html name for code, doubled canvas size and a lot of sounds were made but not yet added to the code. also some art was done
