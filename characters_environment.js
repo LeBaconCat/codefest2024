@@ -3,24 +3,21 @@
 =            Variables            =
 =================================*/
 
-function displace(obj1, obj2) {
-    // Check for collision using bounding boxes
-    if (
-      obj1.x < obj2.x + obj2.width &&
-      obj1.x + obj1.width > obj2.x &&
-      obj1.y < obj2.y + obj2.height &&
-      obj1.y + obj1.height > obj2.y
-    ) 
-}
-      // Handle displacement
-      // You can adjust the displacement logic based on your specific requirements
-  
-      // For example, you can push the coins upward when they collide with the platform
-      obj1.y = obj2.y - obj1.height;
-  displace(coins, platform);
-
 /* main variables */
 var car, child_with_football,fallen_tree,traffic_cones,speedpad,slowdownpad,star;
+
+function setup() {
+    // Initialize your sprites here
+    car = createSprite(0, 0);
+    child_with_football = createSprite(0, 0);
+    fallen_tree = createSprite(0, 0);
+    traffic_cones = createSprite(0, 0);
+    speedpad = createSprite(0, 0);
+    slowdownpad = createSprite(0, 0);
+    star = createSprite(0, 0);
+  
+    // Other setup code...
+  }
 
 /* Control variabes */
 var control={
@@ -161,13 +158,18 @@ function initializeInDraw(character){
 	character.scale=0.35;
 	initializeCharacterStatus(character)
 
-    displace(star, star)
-	displace(fallen_tree, fallen_tree)    
-    displace(star, fallen_tree)
-    displace(star, traffic_cones)
-	star.collide(child_with_football);
-    displace(speedpad, slowdownpad)	
-}
+    if(star.collide(star, fallen_tree, child_with_football, traffic_cones)){
+        starY + 50
+    }
+    if(fallen_tree.collide(traffic_cones, child_with_football, traffic_cones, fallen_tree)){
+        fallen_treeY + 50
+    }
+    if(traffic_cones.collide(traffic_cones, child_with_football, traffic_cones, fallen_tree)){
+        traffic_conesY + 50
+    }
+    if(child_with_football.collide(traffic_cones, child_with_football, traffic_cones, fallen_tree)){
+        child_with_footballY + 50
+    }}
 
 function initializeCharacterStatus(character){
     // set up the initial config of character  
@@ -185,20 +187,16 @@ function initializeCharacterStatus(character){
     background(109,143,252);
     
     
-    // make objects not overlap each other.
-    displace(fallen_tree, fallen_tree)
-    displace(traffic_cones, traffic_cones)
-    displace(star, star)
-    displace(child_with_football, child_with_football)
   
     // make character not overlap other objects
     if(car.live){
-        displace(fallen_tree, car)
-        displace(traffic_cones, car)
-        displace(child_with_football, car)
-        displace(speedpad, car)
-        displace(slowdownpad, car)
-        displace(star, car)
+        fallen_tree.collide(car);
+        traffic_cones.collide(car);
+        child_with_football.collide(car);
+        speedpad.collide(car);
+        slowdownpad.collide(car);
+        star.collide(car);
+        
     }
     
     // character config initialize
@@ -573,3 +571,8 @@ function leftSide(obj){ return obj.position.x-(obj.width/2);}
 function rightSide(obj){ return obj.position.x+(obj.width/2);}
 function upSide(obj){ return obj.position.y-(obj.height/2);}
 function downSide(obj){ return obj.position.y+(obj.height/2);}
+
+function draw() {
+    game();
+  }
+  
