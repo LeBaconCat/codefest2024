@@ -1,6 +1,10 @@
 let speedMultiplier = 1.0; // if big car fast if small car slow base is 1.0
 
 function preload() {
+    car_coin = loadSound("car_coin.wav")
+    car_jump = loadSound("car_jump.wav")
+    car_die = loadSound("car_die.wav")
+    car_gameover = loadSound("car_gameover.wav")
 }
 
 function setup() {
