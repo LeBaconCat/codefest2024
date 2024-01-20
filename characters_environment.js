@@ -3,6 +3,22 @@
 =            Variables            =
 =================================*/
 
+function displace(obj1, obj2) {
+    // Check for collision using bounding boxes
+    if (
+      obj1.x < obj2.x + obj2.width &&
+      obj1.x + obj1.width > obj2.x &&
+      obj1.y < obj2.y + obj2.height &&
+      obj1.y + obj1.height > obj2.y
+    ) 
+}
+      // Handle displacement
+      // You can adjust the displacement logic based on your specific requirements
+  
+      // For example, you can push the coins upward when they collide with the platform
+      obj1.y = obj2.y - obj1.height;
+  displace(coins, platform);
+
 /* main variables */
 var car, child_with_football,fallen_tree,traffic_cones,speedpad,slowdownpad,star;
 
@@ -55,6 +71,7 @@ var gameConfig={
 noseX = "";
 noseY = "";
 GameStatus = "";
+game = game
 
 function startGame()
 {
@@ -144,12 +161,12 @@ function initializeInDraw(character){
 	character.scale=0.35;
 	initializeCharacterStatus(character)
 
-    star.displace(star);
-	fallen_tree.displace(fallen_tree);
-	star.displace(fallen_tree);
-	star.displace(traffic_cones);
+    displace(star, star)
+	displace(fallen_tree, fallen_tree)    
+    displace(star, fallen_tree)
+    displace(star, traffic_cones)
 	star.collide(child_with_football);
-	speedpad.displace(slowdownpad);		
+    displace(speedpad, slowdownpad)	
 }
 
 function initializeCharacterStatus(character){
@@ -169,19 +186,19 @@ function initializeCharacterStatus(character){
     
     
     // make objects not overlap each other.
-    fallen_tree.displace(fallen_tree);
-    traffic_cones.displace(traffic_cones);
-    star.collide(star);
-    child_with_football.displace(child_with_football);
+    displace(fallen_tree, fallen_tree)
+    displace(traffic_cones, traffic_cones)
+    displace(star, star)
+    displace(child_with_football, child_with_football)
   
     // make character not overlap other objects
     if(car.live){
-      fallen_tree.displace(car);
-      traffic_cones.displace(car);
-      child_with_football.displace(car);
-      speedpad.displace(car);
-      slowdownpad.displace(car);
-      star.displace(car);
+        displace(fallen_tree, car)
+        displace(traffic_cones, car)
+        displace(child_with_football, car)
+        displace(speedpad, car)
+        displace(slowdownpad, car)
+        displace(star, car)
     }
     
     // character config initialize
