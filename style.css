@@ -13,7 +13,7 @@
 }
 
 .big_image {
-    width: 100%;
+    width: 50%;
 }
 
 #start, #status {
@@ -32,6 +32,5 @@ h4 {
 
 video{
     background: url('game_console.png')
-    background-size:cover;
-    background-position: center;
+    background-position = center;
 }
