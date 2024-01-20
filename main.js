@@ -1,55 +1,60 @@
-carspeed = 10
-carX = noseX
+let carspeed = 10;
+let carX = noseX;
+let speedMultiplier = 1.0; // if big car fast if small car slow base is 1.0
 
 function preload() {
-	world_start = loadSound("world_start.wav");
-	setSprites();
+    world_start = loadSound("world_start.wav");
+    setSprites();
 }
 
 function setup() {
-	canvas = createCanvas(1240,336);
-	canvas.parent('canvas');
+    canvas = createCanvas(1240, 336);
+    canvas.parent('canvas');
 
-	instializeInSetup(game);
+    instializeInSetup(game);
 
-	video = createCapture(VIDEO);
-	video.size(800,400);
-	video.parent('game_console');
+    video = createCapture(VIDEO);
+    video.size(800, 400);
+    video.parent('game_console');
 
-	poseNet = ml5.poseNet(video, modelLoaded);
-	poseNet.on('pose, gotPoses');
-}
-function modelLoaded(){
-	console.log('Model Loaded');
+    poseNet = ml5.poseNet(video, modelLoaded);
+    poseNet.on('pose', gotPoses);
 }
 
-function up_cars(){
-if (noseY > 200){
-    carspeed + 1
-}
+function modelLoaded() {
+    console.log('Model Loaded');
 }
 
-function down_cars(){
-
+function up_cars() {
+    if (noseY > 200) {
+        carspeed += speedMultiplier; // speed go brrrr
+    }
 }
 
-function right_cars(){
-
+function down_cars() {
+    carspeed -= speedMultiplier; // speed go rrrrb
+    // speed should NOT be 0.
+    carspeed = max(0, carspeed);
 }
 
-function left_cars(){
-
+function right_cars() {
+    // go to the right
+    carX += carspeed;
 }
 
+function left_cars() {
+    // go to the left
+    carX -= carspeed;
+}
 
-function gotPoses(results){
-if(results.length > 0)
-{
-	console.log(results);
-	noseX = results[0].pose.nose.x;
-	noseY = results[0].pose.nose.y;
+function gotPoses(results) {
+    if (results.length > 0) {
+        console.log(results);
+        noseX = results[0].pose.nose.x;
+        noseY = results[0].pose.nose.y;
+    }
 }
-}
+
 function draw() {
-	game()
+    game();
 }
